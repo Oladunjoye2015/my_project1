@@ -1,0 +1,17 @@
+SELECT film_title, category_name, COUNT(rental) rental_Count
+FROM 
+(SELECT  f.title film_title, fc.category_id, c.name category_name ,i.inventory_id, r.rental_id rental
+
+FROM film f
+JOIN film_category fc
+ON f.film_id=fc.film_id
+JOIN category c
+ON c.category_id=fc.category_id
+JOIN inventory i
+ON i.film_id=f.film_id
+JOIN rental r
+ON r.inventory_id=i.inventory_id
+) t1
+WHERE 	category_name IN ('Animation','Children','Classics','Comedy','Family','Music')
+GROUP BY 1,2
+Order BY category_name

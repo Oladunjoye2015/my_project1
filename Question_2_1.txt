@@ -1,0 +1,12 @@
+
+SELECT name, title, rental_duration, 
+    
+NTILE(3) OVER (ORDER BY rental_duration) AS standard_quartile
+FROM
+
+(SELECT c.name, fc.category_id , f.rental_duration, f.title
+ FROM film f
+ JOIN film_category fc
+ ON fc.film_id=f.film_id
+ JOIN category c
+ ON c.category_id=fc.category_id) t1
